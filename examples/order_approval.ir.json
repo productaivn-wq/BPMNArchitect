@@ -1,0 +1,141 @@
+{
+  "process": {
+    "id": "order_approval",
+    "name": "Order Approval Workflow",
+    "version": "1.0.0",
+    "protocol_type": "CORE"
+  },
+  "lanes": [
+    {
+      "lane_id": "Lane_CUSTOMER",
+      "name": "Customer / Requester",
+      "node_type": "HumanNode"
+    },
+    {
+      "lane_id": "Lane_REVIEW",
+      "name": "Finance & Operations",
+      "node_type": "AgentNode"
+    },
+    {
+      "lane_id": "Lane_SYSTEM",
+      "name": "Order Engine (Automated)",
+      "node_type": "CodeNode"
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": 1,
+      "name": "Intake & Validation",
+      "governance_gates": [
+        "GW-001"
+      ]
+    },
+    {
+      "phase_id": 2,
+      "name": "Approval & Fulfillment",
+      "governance_gates": [
+        "GW-002"
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "activity_id": "ST-001",
+      "name": "Submit Order Request",
+      "phase_id": 1,
+      "assigned_node_type": "HumanNode",
+      "lane_id": "Lane_CUSTOMER",
+      "rule_ref": "Order Intake"
+    },
+    {
+      "activity_id": "ST-002",
+      "name": "Validate Inventory & Credit",
+      "phase_id": 1,
+      "assigned_node_type": "CodeNode",
+      "lane_id": "Lane_SYSTEM",
+      "rule_ref": "Stock + Credit Check"
+    },
+    {
+      "activity_id": "ST-003",
+      "name": "Review High-Value Order",
+      "phase_id": 2,
+      "assigned_node_type": "AgentNode",
+      "lane_id": "Lane_REVIEW",
+      "rule_ref": "Risk Assessment"
+    },
+    {
+      "activity_id": "ST-004",
+      "name": "Confirm Payment & Dispatch",
+      "phase_id": 2,
+      "assigned_node_type": "CodeNode",
+      "lane_id": "Lane_SYSTEM",
+      "rule_ref": "Fulfillment Dispatch"
+    },
+    {
+      "activity_id": "ST-005",
+      "name": "Deliver Confirmation Receipt",
+      "phase_id": 2,
+      "assigned_node_type": "HumanNode",
+      "lane_id": "Lane_CUSTOMER",
+      "rule_ref": "Customer Notification"
+    }
+  ],
+  "gateways": [
+    {
+      "gateway_id": "GW-001",
+      "name": "Inventory & Credit Valid?",
+      "gateway_type": "XOR",
+      "condition_expression": "in_stock and credit_ok",
+      "true_target": "ST-003",
+      "false_target": "EX-001",
+      "lane_id": "Lane_SYSTEM",
+      "phase_id": 1
+    },
+    {
+      "gateway_id": "GW-002",
+      "name": "Approval Granted?",
+      "gateway_type": "XOR",
+      "condition_expression": "approved == True",
+      "true_target": "ST-004",
+      "false_target": "EX-002",
+      "lane_id": "Lane_REVIEW",
+      "phase_id": 2
+    }
+  ],
+  "exception_loops": [
+    {
+      "loop_id": "EX-001",
+      "source_activity_id": "GW-001",
+      "recovery_activity_id": "ST-001",
+      "trigger_error_code": "INVALID_OR_OOS",
+      "max_retries": 3,
+      "lane_id": "Lane_CUSTOMER"
+    },
+    {
+      "loop_id": "EX-002",
+      "source_activity_id": "GW-002",
+      "recovery_activity_id": "ST-003",
+      "trigger_error_code": "REVISION_REQUIRED",
+      "max_retries": 3,
+      "lane_id": "Lane_REVIEW"
+    }
+  ],
+  "transitions": [
+    {
+      "source": "ST-001",
+      "target": "ST-002"
+    },
+    {
+      "source": "ST-002",
+      "target": "ST-003"
+    },
+    {
+      "source": "ST-003",
+      "target": "ST-004"
+    },
+    {
+      "source": "ST-004",
+      "target": "ST-005"
+    }
+  ]
+}

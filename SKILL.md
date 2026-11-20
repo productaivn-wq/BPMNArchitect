@@ -35,7 +35,7 @@ domain_adapter_contract:
 **`BPMNArchitect`** is the canonical, domain-agnostic process modeling skill. It can model, validate, audit, and render formal BPMN 2.0 workflows for **any business process**, whether software engineering, enterprise operations, research, financial planning, or document crafting.
 
 ### Core Architectural Axioms
-1. **Generic & Reusable**: `BPMNArchitect` contains instructions for process modeling in general. System-specific process specifications (such as the Universal Working Harness 37-step model) live in project context directories (`docs/diagrams/UNIVERSAL_WORKING_HARNESS_BPMN_SPEC.md`).
+1. **Generic & Reusable**: `BPMNArchitect` provides domain-agnostic process modeling rules, compilation, and verification. System-specific workflows live in their own project directories or `*.ir.json` inputs.
 2. **Camunda BPMN 2.0 & Multi-Format First-Class Standard**: All process models MUST be exportable as standard **Camunda BPMN 2.0 XML (`.bpmn`)** containing complete **Diagram Interchange (BPMNDI)** specifications: every node MUST have `<bpmndi:BPMNShape>` with precise bounds, and every sequence flow MUST have `<bpmndi:BPMNEdge>` with explicit `<di:waypoint>` coordinates so they render clean connecting arrows in Camunda Modeler without disconnected nodes. Models are also rendered using **Native Mermaid.js** and **PlantUML Activity Diagrams (`.puml`)**.
 3. **Start Event Flexibility**: A valid process MUST have at least one Start Event ($\ge 1$). Multiple Start Events with distinct triggers (Message, Timer, Signal, None) are explicitly allowed.
 
@@ -81,7 +81,7 @@ To ensure professional visual quality and eliminate any rendering overlap when o
    - Task boxes MUST use a minimum size of $180 \times 80\text{px}$ (or $190 \times 80\text{px}$ for longer titles).
    - Task `name` attributes MUST be formatted with an explicit newline entity (`&#10;`):
      - Line 1: Concise action name (e.g. `ST-001: Report Breakdown`).
-     - Line 2: Rule / UC reference (e.g. `(UC-TYCRM-001 Intake)`).
+     - Line 2: Rule / UC reference (e.g. `(Order Intake)`).
    - This keeps the text centered and compact ($\approx 30\text{px}$ high), leaving the top $25\text{px}$ completely clear for the top-left task type icon (User/Service/Script marker), preventing any text-icon collision.
 4. **Dedicated Gateway & Event Label Placement**:
    - Every Gateway diamond ($50 \times 50\text{px}$) MUST have `isMarkerVisible="true"` and an explicit `<bpmndi:BPMNLabel>` with `<dc:Bounds x="{gx-35}" y="{gy-40}" width="120" height="25" />` positioned $30\text{px}$ above the diamond in the lane's top gutter channel.
@@ -123,12 +123,10 @@ Step 5: Compile 2-Layer IR (`*.ir.json`) -> Verified Camunda `.bpmn` + Interacti
 ```
 
 ### CLI & Python Engine Commands
-- **Export Canonical SOP Suite (`53.REF.07` & `53.REF.08`)**:
-  `python scripts/cli.py --action export-suite --target-dir examples`
 - **Compile Custom 2-Layer Business IR (`*.ir.json`)**:
-  `python scripts/cli.py --action export-suite --ir path/to/process.ir.json --target-dir out`
+  `python scripts/cli.py --action export-suite --ir examples/order_approval.ir.json --target-dir out`
 - **Verify Semantic Reachability, Zero Box Cuts & Zero Arrow Overlaps**:
-  `python scripts/cli.py --action verify-bpmn`
+  `python scripts/cli.py --action verify-bpmn --ir examples/order_approval.ir.json`
 
 ---
 

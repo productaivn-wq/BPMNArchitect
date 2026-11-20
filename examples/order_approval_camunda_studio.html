@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BPMNArchitect Studio — Order Approval Workflow</title>
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/diagram-js.css" />
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-js.css" />
+  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-font/css/bpmn.css" />
+  <script src="https://unpkg.com/bpmn-js@17.11.1/dist/bpmn-modeler.production.min.js"></script>
+  <style>
+    :root { --bg: #0f172a; --panel: #1e293b; --border: #334155; --accent: #38bdf8; --ok: #10b981; --warn: #f59e0b; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f8fafc; color: #0f172a; }
+    header { background: var(--bg); color: #f8fafc; padding: 10px 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; border-bottom: 2px solid var(--accent); }
+    .brand { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+    .pill { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #0284c7; color: #fff; font-weight: 600; }
+    .pill.ok { background: #065f46; border: 1px solid #10b981; }
+    select, button { border-radius: 6px; border: 1px solid var(--border); background: var(--panel); color: #f8fafc; padding: 6px 11px; font-size: 13px; cursor: pointer; }
+    button:hover { background: #334155; }
+    button.primary { background: #0284c7; border-color: #38bdf8; font-weight: 600; }
+    button.primary:hover { background: #0369a1; }
+    .spacer { flex: 1; }
+    #dirtyBadge { display: none; color: #fbbf24; font-size: 12px; font-weight: 600; }
+    nav.tabs { background: #ffffff; border-bottom: 1px solid #cbd5e1; padding: 0 18px; display: flex; gap: 6px; }
+    nav.tabs button { background: transparent; color: #475569; border: none; border-bottom: 3px solid transparent; border-radius: 0; padding: 10px 14px; font-weight: 600; }
+    nav.tabs button.active { color: #0284c7; border-bottom-color: #0284c7; }
+    .view { display: none; height: calc(100vh - 96px); }
+    .view.active { display: block; }
+    #canvas { width: 100%; height: 100%; background: #ffffff; }
+    .panel-pad { padding: 20px; overflow: auto; height: 100%; max-width: 1280px; margin: 0 auto; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .kpi { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 12px 14px; }
+    .kpi .lbl { font-size: 11px; color: #64748b; text-transform: uppercase; font-weight: 700; }
+    .kpi .val { font-size: 20px; font-weight: 800; color: #0f172a; margin-top: 4px; }
+    table { width: 100%; border-collapse: collapse; background: #ffffff; border: 1px solid #cbd5e1; font-size: 13px; }
+    th { background: #0f172a; color: #f8fafc; text-align: left; padding: 10px 12px; }
+    td { padding: 8px 12px; border-bottom: 1px solid #e2e8f0; }
+    tr:nth-child(even) td { background: #f8fafc; }
+    pre { background: #0f172a; color: #e2e8f0; padding: 14px; border-radius: 10px; overflow: auto; font-size: 12px; max-height: 360px; }
+    #offlineWarn { display: none; background: #fef3c7; color: #92400e; padding: 10px 18px; font-size: 13px; border-bottom: 1px solid #f59e0b; }
+    .bjs-powered-by { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span>BPMNArchitect Studio</span>
+      <span class="pill">OMG BPMN 2.0</span>
+      <span class="pill ok" id="proofBadge">Verified 0 Overlaps</span>
+    </div>
+    <select id="procSelect" onchange="switchProcess(this.value)"></select>
+    <span id="dirtyBadge">Unsaved edits</span>
+    <span class="spacer"></span>
+    <button onclick="zoomFit()">Fit View</button>
+    <button onclick="zoomStep(1)">+</button>
+    <button onclick="zoomStep(-1)">-</button>
+    <button class="primary" onclick="downloadBpmn()">Download .bpmn</button>
+    <button onclick="downloadSvg()">Export .svg</button>
+    <button onclick="saveBpmnFile()">Save File</button>
+    <button onclick="copyXml()">Copy XML</button>
+  </header>
+  <div id="offlineWarn">Note: Interactive drag-and-drop canvas requires bpmn-js CDN access. Execution Matrix, Mermaid, PlantUML, and Raw XML tabs remain 100% available offline.</div>
+  <nav class="tabs">
+    <button id="tab-modeler" class="active" onclick="showTab('modeler')">Interactive Camunda 2.0 Modeler</button>
+    <button id="tab-matrix" onclick="showTab('matrix')">UTOP Step Execution Matrix</button>
+    <button id="tab-source" onclick="showTab('source')">Mermaid / PlantUML / Raw XML</button>
+  </nav>
+
+  <section id="view-modeler" class="view active"><div id="canvas"></div></section>
+  <section id="view-matrix" class="view panel-pad">
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <table>
+      <thead><tr><th>Step ID</th><th>Phase</th><th>Action Title</th><th>Node Type</th><th>Tier</th><th>Rule / Spec Reference</th></tr></thead>
+      <tbody id="stepTableBody"></tbody>
+    </table>
+  </section>
+  <section id="view-source" class="view panel-pad">
+    <h3>Mermaid Flowchart Source</h3>
+    <pre id="mermaidSrc"></pre>
+    <h3>PlantUML Activity Source</h3>
+    <pre id="pumlSrc"></pre>
+    <h3>Camunda Modeler 5.20 BPMN 2.0 XML</h3>
+    <pre id="xmlSrc"></pre>
+  </section>
+
+  <script>
+    const PROCESSES = [{"slug": "order_approval", "process_id": "order_approval", "title": "order_approval — Order Approval Workflow", "version": "1.0.0", "protocol": "CORE", "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<bpmn:definitions xmlns:bpmn=\"http://www.omg.org/spec/BPMN/20100524/MODEL\"\n                  xmlns:bpmndi=\"http://www.omg.org/spec/BPMN/20100524/DI\"\n                  xmlns:dc=\"http://www.omg.org/spec/DD/20100524/DC\"\n                  xmlns:di=\"http://www.omg.org/spec/DD/20100524/DI\"\n                  xmlns:camunda=\"http://camunda.org/schema/1.0/bpmn\"\n                  id=\"Definitions_order_approval\"\n                  targetNamespace=\"http://bpmn.io/schema/bpmn\"\n                  exporter=\"Camunda Modeler\"\n                  exporterVersion=\"5.20.0\">\n  <bpmn:collaboration id=\"Collaboration_order_approval\">\n    <bpmn:participant id=\"Participant_order_approval\" name=\"Order Approval Workflow\" processRef=\"Process_order_approval\" />\n  <\/bpmn:collaboration>\n  <bpmn:process id=\"Process_order_approval\" name=\"Order Approval Workflow\" isExecutable=\"true\">\n    <bpmn:laneSet id=\"LaneSet_order_approval\">\n      <bpmn:lane id=\"Lane_CUSTOMER\" name=\"Customer / Requester\">\n        <bpmn:flowNodeRef>StartEvent_1<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>ST-001<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>EX-001<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>ST-005<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>EndEvent_1<\/bpmn:flowNodeRef>\n      <\/bpmn:lane>\n      <bpmn:lane id=\"Lane_REVIEW\" name=\"Finance &amp; Operations\">\n        <bpmn:flowNodeRef>ST-003<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>GW-002<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>EX-002<\/bpmn:flowNodeRef>\n      <\/bpmn:lane>\n      <bpmn:lane id=\"Lane_SYSTEM\" name=\"Order Engine (Automated)\">\n        <bpmn:flowNodeRef>ST-002<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>GW-001<\/bpmn:flowNodeRef>\n        <bpmn:flowNodeRef>ST-004<\/bpmn:flowNodeRef>\n      <\/bpmn:lane>\n    <\/bpmn:laneSet>\n    <bpmn:startEvent id=\"StartEvent_1\" name=\"Process Initiated\">\n      <bpmn:outgoing>Flow_Start_ST_001<\/bpmn:outgoing>\n    <\/bpmn:startEvent>\n    <bpmn:userTask id=\"ST-001\" name=\"ST-001: Submit Order Request&#10;(Order Intake)\">\n      <bpmn:incoming>Flow_Start_ST_001<\/bpmn:incoming>\n      <bpmn:incoming>Flow_EX_001_ST_001<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_ST_001_ST_002<\/bpmn:outgoing>\n    <\/bpmn:userTask>\n    <bpmn:serviceTask id=\"ST-002\" name=\"ST-002: Validate Inventory &amp; Credit&#10;(Stock + Credit Check)\">\n      <bpmn:incoming>Flow_ST_001_ST_002<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_ST_002_GW_001<\/bpmn:outgoing>\n    <\/bpmn:serviceTask>\n    <bpmn:exclusiveGateway id=\"GW-001\" name=\"GW-001: Inventory &amp; Credit Valid?\">\n      <bpmn:incoming>Flow_ST_002_GW_001<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_GW_001_ST_003_Pass<\/bpmn:outgoing>\n      <bpmn:outgoing>Flow_GW_001_EX_001_Fail<\/bpmn:outgoing>\n    <\/bpmn:exclusiveGateway>\n    <bpmn:serviceTask id=\"EX-001\" name=\"EX-001: Auto-Heal (INVALID_OR_OOS)&#10;(Recover -&gt; ST-001)\">\n      <bpmn:incoming>Flow_GW_001_EX_001_Fail<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_EX_001_ST_001<\/bpmn:outgoing>\n    <\/bpmn:serviceTask>\n    <bpmn:userTask id=\"ST-003\" name=\"ST-003: Review High-Value Order&#10;(Risk Assessment)\">\n      <bpmn:incoming>Flow_GW_001_ST_003_Pass<\/bpmn:incoming>\n      <bpmn:incoming>Flow_EX_002_ST_003<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_ST_003_GW_002<\/bpmn:outgoing>\n    <\/bpmn:userTask>\n    <bpmn:exclusiveGateway id=\"GW-002\" name=\"GW-002: Approval Granted?\">\n      <bpmn:incoming>Flow_ST_003_GW_002<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_GW_002_ST_004_Pass<\/bpmn:outgoing>\n      <bpmn:outgoing>Flow_GW_002_EX_002_Fail<\/bpmn:outgoing>\n    <\/bpmn:exclusiveGateway>\n    <bpmn:serviceTask id=\"EX-002\" name=\"EX-002: Auto-Heal (REVISION_REQUIRED)&#10;(Recover -&gt; ST-003)\">\n      <bpmn:incoming>Flow_GW_002_EX_002_Fail<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_EX_002_ST_003<\/bpmn:outgoing>\n    <\/bpmn:serviceTask>\n    <bpmn:serviceTask id=\"ST-004\" name=\"ST-004: Confirm Payment &amp; Dispatch&#10;(Fulfillment Dispatch)\">\n      <bpmn:incoming>Flow_GW_002_ST_004_Pass<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_ST_004_ST_005<\/bpmn:outgoing>\n    <\/bpmn:serviceTask>\n    <bpmn:userTask id=\"ST-005\" name=\"ST-005: Deliver Confirmation Receipt&#10;(Customer Notification)\">\n      <bpmn:incoming>Flow_ST_004_ST_005<\/bpmn:incoming>\n      <bpmn:outgoing>Flow_ST_005_End<\/bpmn:outgoing>\n    <\/bpmn:userTask>\n    <bpmn:endEvent id=\"EndEvent_1\" name=\"Process Completed\">\n      <bpmn:incoming>Flow_ST_005_End<\/bpmn:incoming>\n    <\/bpmn:endEvent>\n    <bpmn:sequenceFlow id=\"Flow_Start_ST_001\" sourceRef=\"StartEvent_1\" targetRef=\"ST-001\" />\n    <bpmn:sequenceFlow id=\"Flow_ST_001_ST_002\" sourceRef=\"ST-001\" targetRef=\"ST-002\" />\n    <bpmn:sequenceFlow id=\"Flow_ST_002_GW_001\" sourceRef=\"ST-002\" targetRef=\"GW-001\" />\n    <bpmn:sequenceFlow id=\"Flow_ST_003_GW_002\" sourceRef=\"ST-003\" targetRef=\"GW-002\" />\n    <bpmn:sequenceFlow id=\"Flow_ST_004_ST_005\" sourceRef=\"ST-004\" targetRef=\"ST-005\" />\n    <bpmn:sequenceFlow id=\"Flow_GW_001_ST_003_Pass\" name=\"Pass\" sourceRef=\"GW-001\" targetRef=\"ST-003\" />\n    <bpmn:sequenceFlow id=\"Flow_GW_001_EX_001_Fail\" name=\"INVALID_OR_OOS\" sourceRef=\"GW-001\" targetRef=\"EX-001\" />\n    <bpmn:sequenceFlow id=\"Flow_GW_002_ST_004_Pass\" name=\"Pass\" sourceRef=\"GW-002\" targetRef=\"ST-004\" />\n    <bpmn:sequenceFlow id=\"Flow_GW_002_EX_002_Fail\" name=\"REVISION_REQUIRED\" sourceRef=\"GW-002\" targetRef=\"EX-002\" />\n    <bpmn:sequenceFlow id=\"Flow_EX_001_ST_001\" name=\"Retry -&gt; ST-001\" sourceRef=\"EX-001\" targetRef=\"ST-001\" />\n    <bpmn:sequenceFlow id=\"Flow_EX_002_ST_003\" name=\"Retry -&gt; ST-003\" sourceRef=\"EX-002\" targetRef=\"ST-003\" />\n    <bpmn:sequenceFlow id=\"Flow_ST_005_End\" sourceRef=\"ST-005\" targetRef=\"EndEvent_1\" />\n  <\/bpmn:process>\n  <bpmndi:BPMNDiagram id=\"BPMNDiagram_order_approval\">\n    <bpmndi:BPMNPlane id=\"BPMNPlane_order_approval\" bpmnElement=\"Collaboration_order_approval\">\n      <bpmndi:BPMNShape id=\"Participant_order_approval_di\" bpmnElement=\"Participant_order_approval\" isHorizontal=\"true\">\n        <dc:Bounds x=\"160\" y=\"80\" width=\"2740\" height=\"882\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"Lane_CUSTOMER_di\" bpmnElement=\"Lane_CUSTOMER\" isHorizontal=\"true\">\n        <dc:Bounds x=\"190\" y=\"80\" width=\"2710\" height=\"306\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"Lane_REVIEW_di\" bpmnElement=\"Lane_REVIEW\" isHorizontal=\"true\">\n        <dc:Bounds x=\"190\" y=\"386\" width=\"2710\" height=\"230\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"Lane_SYSTEM_di\" bpmnElement=\"Lane_SYSTEM\" isHorizontal=\"true\">\n        <dc:Bounds x=\"190\" y=\"616\" width=\"2710\" height=\"346\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"StartEvent_1_di\" bpmnElement=\"StartEvent_1\">\n        <dc:Bounds x=\"252\" y=\"250\" width=\"36\" height=\"36\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"235\" y=\"292\" width=\"106\" height=\"24\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"ST-001_di\" bpmnElement=\"ST-001\">\n        <dc:Bounds x=\"380\" y=\"228\" width=\"180\" height=\"80\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"ST-002_di\" bpmnElement=\"ST-002\">\n        <dc:Bounds x=\"620\" y=\"694\" width=\"180\" height=\"80\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"GW-001_di\" bpmnElement=\"GW-001\" isMarkerVisible=\"true\">\n        <dc:Bounds x=\"925\" y=\"709\" width=\"50\" height=\"50\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"890\" y=\"669\" width=\"120\" height=\"25\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"EX-001_di\" bpmnElement=\"EX-001\">\n        <dc:Bounds x=\"1100\" y=\"228\" width=\"180\" height=\"80\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"ST-003_di\" bpmnElement=\"ST-003\">\n        <dc:Bounds x=\"1340\" y=\"464\" width=\"180\" height=\"80\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"GW-002_di\" bpmnElement=\"GW-002\" isMarkerVisible=\"true\">\n        <dc:Bounds x=\"1645\" y=\"479\" width=\"50\" height=\"50\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"1610\" y=\"439\" width=\"120\" height=\"25\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"EX-002_di\" bpmnElement=\"EX-002\">\n        <dc:Bounds x=\"1820\" y=\"464\" width=\"180\" height=\"80\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"ST-004_di\" bpmnElement=\"ST-004\">\n        <dc:Bounds x=\"2060\" y=\"694\" width=\"180\" height=\"80\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"ST-005_di\" bpmnElement=\"ST-005\">\n        <dc:Bounds x=\"2300\" y=\"228\" width=\"180\" height=\"80\" />\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNShape id=\"EndEvent_1_di\" bpmnElement=\"EndEvent_1\">\n        <dc:Bounds x=\"2560\" y=\"250\" width=\"36\" height=\"36\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"2525\" y=\"292\" width=\"106\" height=\"24\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNShape>\n      <bpmndi:BPMNEdge id=\"Flow_Start_ST_001_di\" bpmnElement=\"Flow_Start_ST_001\">\n        <di:waypoint x=\"288\" y=\"268\" />\n        <di:waypoint x=\"380\" y=\"268\" />\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_ST_001_ST_002_di\" bpmnElement=\"Flow_ST_001_ST_002\">\n        <di:waypoint x=\"560\" y=\"268\" />\n        <di:waypoint x=\"586\" y=\"268\" />\n        <di:waypoint x=\"586\" y=\"734\" />\n        <di:waypoint x=\"620\" y=\"734\" />\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_ST_002_GW_001_di\" bpmnElement=\"Flow_ST_002_GW_001\">\n        <di:waypoint x=\"800\" y=\"734\" />\n        <di:waypoint x=\"925\" y=\"734\" />\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_ST_003_GW_002_di\" bpmnElement=\"Flow_ST_003_GW_002\">\n        <di:waypoint x=\"1520\" y=\"504\" />\n        <di:waypoint x=\"1645\" y=\"504\" />\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_ST_004_ST_005_di\" bpmnElement=\"Flow_ST_004_ST_005\">\n        <di:waypoint x=\"2240\" y=\"734\" />\n        <di:waypoint x=\"2266\" y=\"734\" />\n        <di:waypoint x=\"2266\" y=\"268\" />\n        <di:waypoint x=\"2300\" y=\"268\" />\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_GW_001_ST_003_Pass_di\" bpmnElement=\"Flow_GW_001_ST_003_Pass\">\n        <di:waypoint x=\"975\" y=\"734\" />\n        <di:waypoint x=\"1003\" y=\"734\" />\n        <di:waypoint x=\"1003\" y=\"104\" />\n        <di:waypoint x=\"1316\" y=\"104\" />\n        <di:waypoint x=\"1316\" y=\"504\" />\n        <di:waypoint x=\"1340\" y=\"504\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"1114\" y=\"82\" width=\"90\" height=\"18\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_GW_001_EX_001_Fail_di\" bpmnElement=\"Flow_GW_001_EX_001_Fail\">\n        <di:waypoint x=\"950\" y=\"759\" />\n        <di:waypoint x=\"950\" y=\"787\" />\n        <di:waypoint x=\"1058\" y=\"787\" />\n        <di:waypoint x=\"1058\" y=\"268\" />\n        <di:waypoint x=\"1100\" y=\"268\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"965\" y=\"795\" width=\"100\" height=\"18\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_GW_002_ST_004_Pass_di\" bpmnElement=\"Flow_GW_002_ST_004_Pass\">\n        <di:waypoint x=\"1695\" y=\"504\" />\n        <di:waypoint x=\"1723\" y=\"504\" />\n        <di:waypoint x=\"1723\" y=\"132\" />\n        <di:waypoint x=\"2036\" y=\"132\" />\n        <di:waypoint x=\"2036\" y=\"734\" />\n        <di:waypoint x=\"2060\" y=\"734\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"1834\" y=\"110\" width=\"90\" height=\"18\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_GW_002_EX_002_Fail_di\" bpmnElement=\"Flow_GW_002_EX_002_Fail\">\n        <di:waypoint x=\"1670\" y=\"529\" />\n        <di:waypoint x=\"1670\" y=\"557\" />\n        <di:waypoint x=\"1778\" y=\"557\" />\n        <di:waypoint x=\"1778\" y=\"504\" />\n        <di:waypoint x=\"1820\" y=\"504\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"1685\" y=\"565\" width=\"100\" height=\"18\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_EX_001_ST_001_di\" bpmnElement=\"Flow_EX_001_ST_001\">\n        <di:waypoint x=\"1190\" y=\"308\" />\n        <di:waypoint x=\"1190\" y=\"820\" />\n        <di:waypoint x=\"422\" y=\"820\" />\n        <di:waypoint x=\"422\" y=\"308\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"751\" y=\"798\" width=\"110\" height=\"18\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_EX_002_ST_003_di\" bpmnElement=\"Flow_EX_002_ST_003\">\n        <di:waypoint x=\"1910\" y=\"544\" />\n        <di:waypoint x=\"1910\" y=\"850\" />\n        <di:waypoint x=\"1382\" y=\"850\" />\n        <di:waypoint x=\"1382\" y=\"544\" />\n        <bpmndi:BPMNLabel>\n          <dc:Bounds x=\"1591\" y=\"828\" width=\"110\" height=\"18\" />\n        <\/bpmndi:BPMNLabel>\n      <\/bpmndi:BPMNEdge>\n      <bpmndi:BPMNEdge id=\"Flow_ST_005_End_di\" bpmnElement=\"Flow_ST_005_End\">\n        <di:waypoint x=\"2480\" y=\"268\" />\n        <di:waypoint x=\"2560\" y=\"268\" />\n      <\/bpmndi:BPMNEdge>\n    <\/bpmndi:BPMNPlane>\n  <\/bpmndi:BPMNDiagram>\n<\/bpmn:definitions>", "mermaid": "flowchart TD\n    classDef human fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#0f172a;\n    classDef code fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#0f172a;\n    classDef agent fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#0f172a;\n    classDef ex fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#7f1d1d;\n    classDef gw fill:#fffde7,stroke:#fbc02d,stroke-width:2px,color:#0f172a;\n\n    START([\"Process Initiated\"]):::human\n    END([\"Process Completed\"]):::code\n    subgraph P1[\"Phase 1: Intake & Validation\"]\n        ST_001[\"ST-001: Submit Order Request\"]:::human\n        ST_002[\"ST-002: Validate Inventory & Credit\"]:::code\n    end\n    subgraph P2[\"Phase 2: Approval & Fulfillment\"]\n        ST_003[\"ST-003: Review High-Value Order\"]:::agent\n        ST_004[\"ST-004: Confirm Payment & Dispatch\"]:::code\n        ST_005[\"ST-005: Deliver Confirmation Receipt\"]:::human\n    end\n    GW_001{\"GW-001: Inventory & Credit Valid?\"}:::gw\n    GW_002{\"GW-002: Approval Granted?\"}:::gw\n    EX_001[\"EX-001: Auto-Heal (INVALID_OR_OOS)\"]:::ex\n    EX_002[\"EX-002: Auto-Heal (REVISION_REQUIRED)\"]:::ex\n\n    START --> ST_001\n    ST_001 --> ST_002\n    ST_002 --> GW_001\n    ST_003 --> GW_002\n    ST_004 --> ST_005\n    GW_001 -- \"Pass\" --> ST_003\n    GW_001 -- \"INVALID_OR_OOS\" --> EX_001\n    GW_002 -- \"Pass\" --> ST_004\n    GW_002 -- \"REVISION_REQUIRED\" --> EX_002\n    EX_001 -- \"Retry -> ST-001\" --> ST_001\n    EX_002 -- \"Retry -> ST-003\" --> ST_003\n    ST_005 --> END", "plantuml": "@startuml order_approval\ntitle Order Approval Workflow (order_approval v1.0.0)\nskinparam ActivityBackgroundColor #0f172a\nskinparam ActivityBorderColor #38bdf8\nskinparam ActivityFontColor #f8fafc\nskinparam ArrowColor #0284c7\nskinparam SwimlaneBorderColor #334155\nstart\n|Customer / Requester|\n#fff3e0:ST-001: Submit Order Request;\n|Order Engine (Automated)|\n#0f172a:ST-002: Validate Inventory & Credit;\n|Finance & Operations|\nif (GW-001: Inventory & Credit Valid??) then (Pass)\nelse (Fail)\n  #450a0a:EX-001: Auto-Heal (INVALID_OR_OOS)\\n-> Retry ST-001;\nendif\n#3b0764:ST-003: Review High-Value Order;\n|Order Engine (Automated)|\nif (GW-002: Approval Granted??) then (Pass)\nelse (Fail)\n  #450a0a:EX-002: Auto-Heal (REVISION_REQUIRED)\\n-> Retry ST-003;\nendif\n#0f172a:ST-004: Confirm Payment & Dispatch;\n|Customer / Requester|\n#fff3e0:ST-005: Deliver Confirmation Receipt;\nstop\n@enduml", "steps": [{"id": "ST-001", "phase": "P1: Intake & Validation", "name": "Submit Order Request", "node_type": "HumanNode", "tier": "2m", "rule": "Order Intake"}, {"id": "ST-002", "phase": "P1: Intake & Validation", "name": "Validate Inventory & Credit", "node_type": "CodeNode", "tier": "2m", "rule": "Stock + Credit Check"}, {"id": "ST-003", "phase": "P2: Approval & Fulfillment", "name": "Review High-Value Order", "node_type": "AgentNode", "tier": "2m", "rule": "Risk Assessment"}, {"id": "ST-004", "phase": "P2: Approval & Fulfillment", "name": "Confirm Payment & Dispatch", "node_type": "CodeNode", "tier": "2m", "rule": "Fulfillment Dispatch"}, {"id": "ST-005", "phase": "P2: Approval & Fulfillment", "name": "Deliver Confirmation Receipt", "node_type": "HumanNode", "tier": "2m", "rule": "Customer Notification"}], "metrics": {"activities": 5, "gateways": 2, "exceptions": 2, "semantic_ok": true, "shape_collisions": 0, "box_intersections": 0, "arrow_overlaps": 0}}];
+    let modeler = null;
+    let currentProc = PROCESSES[0];
+    let dirty = false;
+
+    const selectEl = document.getElementById('procSelect');
+    PROCESSES.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.slug;
+      opt.textContent = p.title;
+      selectEl.appendChild(opt);
+    });
+
+    if (typeof BpmnJS !== 'undefined') {
+      modeler = new BpmnJS({ container: '#canvas' });
+      modeler.on('commandStack.changed', () => setDirty(true));
+    } else {
+      document.getElementById('offlineWarn').style.display = 'block';
+    }
+
+    function setDirty(v) {
+      dirty = v;
+      document.getElementById('dirtyBadge').style.display = v ? 'inline' : 'none';
+    }
+
+    function showTab(name) {
+      ['modeler', 'matrix', 'source'].forEach(t => {
+        document.getElementById('tab-' + t).classList.toggle('active', t === name);
+        document.getElementById('view-' + t).classList.toggle('active', t === name);
+      });
+      if (name === 'modeler' && modeler) setTimeout(zoomFit, 50);
+    }
+
+    function renderDetails(p) {
+      const m = p.metrics;
+      document.getElementById('proofBadge').textContent =
+        `Verified: ${m.shape_collisions} collisions, ${m.box_intersections} cuts, ${m.arrow_overlaps} overlaps`;
+      document.getElementById('kpiGrid').innerHTML = [
+        ['Activities', m.activities],
+        ['Gateways', m.gateways],
+        ['Exception Loops', m.exceptions],
+        ['Semantic Check', m.semantic_ok ? 'PASS' : 'FAIL'],
+        ['Box Cuts', m.box_intersections],
+        ['Arrow Overlaps', m.arrow_overlaps],
+      ].map(([k, v]) => `<div class="kpi"><div class="lbl">${k}</div><div class="val">${v}</div></div>`).join('');
+
+      document.getElementById('stepTableBody').innerHTML = p.steps.map(s =>
+        `<tr><td><b>${s.id}</b></td><td>${s.phase}</td><td>${s.name}</td><td><code>${s.node_type}</code></td><td>${s.tier}</td><td>${s.rule}</td></tr>`
+      ).join('');
+      document.getElementById('mermaidSrc').textContent = p.mermaid;
+      document.getElementById('pumlSrc').textContent = p.plantuml;
+      document.getElementById('xmlSrc').textContent = p.xml;
+    }
+
+    async function switchProcess(slug) {
+      if (dirty && !confirm('Unsaved canvas edits will be lost. Continue?')) {
+        selectEl.value = currentProc.slug;
+        return;
+      }
+      currentProc = PROCESSES.find(p => p.slug === slug) || PROCESSES[0];
+      selectEl.value = currentProc.slug;
+      renderDetails(currentProc);
+      if (modeler) {
+        await modeler.importXML(currentProc.xml);
+        setDirty(false);
+        zoomFit();
+      }
+    }
+
+    function zoomFit() { if (modeler) modeler.get('canvas').zoom('fit-viewport', 'auto'); }
+    function zoomStep(dir) { if (modeler) modeler.get('zoomScroll').stepZoom(dir); }
+
+    async function currentXml() {
+      if (modeler) {
+        const res = await modeler.saveXML({ format: true });
+        return res.xml;
+      }
+      return currentProc.xml;
+    }
+
+    async function downloadBpmn() {
+      const xml = await currentXml();
+      const blob = new Blob([xml], { type: 'application/xml' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = currentProc.slug + '.bpmn';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      setDirty(false);
+    }
+
+    async function downloadSvg() {
+      if (!modeler) return alert('SVG export requires bpmn-js canvas.');
+      const res = await modeler.saveSVG();
+      const blob = new Blob([res.svg], { type: 'image/svg+xml' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = currentProc.slug + '.svg';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    async function saveBpmnFile() {
+      if (!window.showSaveFilePicker) return downloadBpmn();
+      const xml = await currentXml();
+      const handle = await window.showSaveFilePicker({
+        suggestedName: currentProc.slug + '.bpmn',
+        types: [{ description: 'BPMN 2.0 XML', accept: { 'application/xml': ['.bpmn'] } }]
+      });
+      const w = await handle.createWritable();
+      await w.write(xml);
+      await w.close();
+      setDirty(false);
+    }
+
+    async function copyXml() {
+      const xml = await currentXml();
+      await navigator.clipboard.writeText(xml);
+      alert('Copied BPMN 2.0 XML to clipboard.');
+    }
+
+    switchProcess(currentProc.slug);
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+@startuml order_approval
+title Order Approval Workflow (order_approval v1.0.0)
+skinparam ActivityBackgroundColor #0f172a
+skinparam ActivityBorderColor #38bdf8
+skinparam ActivityFontColor #f8fafc
+skinparam ArrowColor #0284c7
+skinparam SwimlaneBorderColor #334155
+start
+|Customer / Requester|
+#fff3e0:ST-001: Submit Order Request;
+|Order Engine (Automated)|
+#0f172a:ST-002: Validate Inventory & Credit;
+|Finance & Operations|
+if (GW-001: Inventory & Credit Valid??) then (Pass)
+else (Fail)
+  #450a0a:EX-001: Auto-Heal (INVALID_OR_OOS)\n-> Retry ST-001;
+endif
+#3b0764:ST-003: Review High-Value Order;
+|Order Engine (Automated)|
+if (GW-002: Approval Granted??) then (Pass)
+else (Fail)
+  #450a0a:EX-002: Auto-Heal (REVISION_REQUIRED)\n-> Retry ST-003;
+endif
+#0f172a:ST-004: Confirm Payment & Dispatch;
+|Customer / Requester|
+#fff3e0:ST-005: Deliver Confirmation Receipt;
+stop
+@enduml

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_order_approval"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  exporter="Camunda Modeler"
+                  exporterVersion="5.20.0">
+  <bpmn:collaboration id="Collaboration_order_approval">
+    <bpmn:participant id="Participant_order_approval" name="Order Approval Workflow" processRef="Process_order_approval" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_order_approval" name="Order Approval Workflow" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_order_approval">
+      <bpmn:lane id="Lane_CUSTOMER" name="Customer / Requester">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EX-001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-005</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_REVIEW" name="Finance &amp; Operations">
+        <bpmn:flowNodeRef>ST-003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW-002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EX-002</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_SYSTEM" name="Order Engine (Automated)">
+        <bpmn:flowNodeRef>ST-002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW-001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-004</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Process Initiated">
+      <bpmn:outgoing>Flow_Start_ST_001</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="ST-001" name="ST-001: Submit Order Request&#10;(Order Intake)">
+      <bpmn:incoming>Flow_Start_ST_001</bpmn:incoming>
+      <bpmn:incoming>Flow_EX_001_ST_001</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_001_ST_002</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ST-002" name="ST-002: Validate Inventory &amp; Credit&#10;(Stock + Credit Check)">
+      <bpmn:incoming>Flow_ST_001_ST_002</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_002_GW_001</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="GW-001" name="GW-001: Inventory &amp; Credit Valid?">
+      <bpmn:incoming>Flow_ST_002_GW_001</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_001_ST_003_Pass</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW_001_EX_001_Fail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="EX-001" name="EX-001: Auto-Heal (INVALID_OR_OOS)&#10;(Recover -&gt; ST-001)">
+      <bpmn:incoming>Flow_GW_001_EX_001_Fail</bpmn:incoming>
+      <bpmn:outgoing>Flow_EX_001_ST_001</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-003" name="ST-003: Review High-Value Order&#10;(Risk Assessment)">
+      <bpmn:incoming>Flow_GW_001_ST_003_Pass</bpmn:incoming>
+      <bpmn:incoming>Flow_EX_002_ST_003</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_003_GW_002</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW-002" name="GW-002: Approval Granted?">
+      <bpmn:incoming>Flow_ST_003_GW_002</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_002_ST_004_Pass</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW_002_EX_002_Fail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="EX-002" name="EX-002: Auto-Heal (REVISION_REQUIRED)&#10;(Recover -&gt; ST-003)">
+      <bpmn:incoming>Flow_GW_002_EX_002_Fail</bpmn:incoming>
+      <bpmn:outgoing>Flow_EX_002_ST_003</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ST-004" name="ST-004: Confirm Payment &amp; Dispatch&#10;(Fulfillment Dispatch)">
+      <bpmn:incoming>Flow_GW_002_ST_004_Pass</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_004_ST_005</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-005" name="ST-005: Deliver Confirmation Receipt&#10;(Customer Notification)">
+      <bpmn:incoming>Flow_ST_004_ST_005</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_005_End</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1" name="Process Completed">
+      <bpmn:incoming>Flow_ST_005_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_ST_001" sourceRef="StartEvent_1" targetRef="ST-001" />
+    <bpmn:sequenceFlow id="Flow_ST_001_ST_002" sourceRef="ST-001" targetRef="ST-002" />
+    <bpmn:sequenceFlow id="Flow_ST_002_GW_001" sourceRef="ST-002" targetRef="GW-001" />
+    <bpmn:sequenceFlow id="Flow_ST_003_GW_002" sourceRef="ST-003" targetRef="GW-002" />
+    <bpmn:sequenceFlow id="Flow_ST_004_ST_005" sourceRef="ST-004" targetRef="ST-005" />
+    <bpmn:sequenceFlow id="Flow_GW_001_ST_003_Pass" name="Pass" sourceRef="GW-001" targetRef="ST-003" />
+    <bpmn:sequenceFlow id="Flow_GW_001_EX_001_Fail" name="INVALID_OR_OOS" sourceRef="GW-001" targetRef="EX-001" />
+    <bpmn:sequenceFlow id="Flow_GW_002_ST_004_Pass" name="Pass" sourceRef="GW-002" targetRef="ST-004" />
+    <bpmn:sequenceFlow id="Flow_GW_002_EX_002_Fail" name="REVISION_REQUIRED" sourceRef="GW-002" targetRef="EX-002" />
+    <bpmn:sequenceFlow id="Flow_EX_001_ST_001" name="Retry -&gt; ST-001" sourceRef="EX-001" targetRef="ST-001" />
+    <bpmn:sequenceFlow id="Flow_EX_002_ST_003" name="Retry -&gt; ST-003" sourceRef="EX-002" targetRef="ST-003" />
+    <bpmn:sequenceFlow id="Flow_ST_005_End" sourceRef="ST-005" targetRef="EndEvent_1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_order_approval">
+    <bpmndi:BPMNPlane id="BPMNPlane_order_approval" bpmnElement="Collaboration_order_approval">
+      <bpmndi:BPMNShape id="Participant_order_approval_di" bpmnElement="Participant_order_approval" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="2740" height="882" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CUSTOMER_di" bpmnElement="Lane_CUSTOMER" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="2710" height="306" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_REVIEW_di" bpmnElement="Lane_REVIEW" isHorizontal="true">
+        <dc:Bounds x="190" y="386" width="2710" height="230" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_SYSTEM_di" bpmnElement="Lane_SYSTEM" isHorizontal="true">
+        <dc:Bounds x="190" y="616" width="2710" height="346" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="252" y="250" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="235" y="292" width="106" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-001_di" bpmnElement="ST-001">
+        <dc:Bounds x="380" y="228" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-002_di" bpmnElement="ST-002">
+        <dc:Bounds x="620" y="694" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW-001_di" bpmnElement="GW-001" isMarkerVisible="true">
+        <dc:Bounds x="925" y="709" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="890" y="669" width="120" height="25" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EX-001_di" bpmnElement="EX-001">
+        <dc:Bounds x="1100" y="228" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-003_di" bpmnElement="ST-003">
+        <dc:Bounds x="1340" y="464" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW-002_di" bpmnElement="GW-002" isMarkerVisible="true">
+        <dc:Bounds x="1645" y="479" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1610" y="439" width="120" height="25" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EX-002_di" bpmnElement="EX-002">
+        <dc:Bounds x="1820" y="464" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-004_di" bpmnElement="ST-004">
+        <dc:Bounds x="2060" y="694" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-005_di" bpmnElement="ST-005">
+        <dc:Bounds x="2300" y="228" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="2560" y="250" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2525" y="292" width="106" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_ST_001_di" bpmnElement="Flow_Start_ST_001">
+        <di:waypoint x="288" y="268" />
+        <di:waypoint x="380" y="268" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_001_ST_002_di" bpmnElement="Flow_ST_001_ST_002">
+        <di:waypoint x="560" y="268" />
+        <di:waypoint x="586" y="268" />
+        <di:waypoint x="586" y="734" />
+        <di:waypoint x="620" y="734" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_002_GW_001_di" bpmnElement="Flow_ST_002_GW_001">
+        <di:waypoint x="800" y="734" />
+        <di:waypoint x="925" y="734" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_003_GW_002_di" bpmnElement="Flow_ST_003_GW_002">
+        <di:waypoint x="1520" y="504" />
+        <di:waypoint x="1645" y="504" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_004_ST_005_di" bpmnElement="Flow_ST_004_ST_005">
+        <di:waypoint x="2240" y="734" />
+        <di:waypoint x="2266" y="734" />
+        <di:waypoint x="2266" y="268" />
+        <di:waypoint x="2300" y="268" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_001_ST_003_Pass_di" bpmnElement="Flow_GW_001_ST_003_Pass">
+        <di:waypoint x="975" y="734" />
+        <di:waypoint x="1003" y="734" />
+        <di:waypoint x="1003" y="104" />
+        <di:waypoint x="1316" y="104" />
+        <di:waypoint x="1316" y="504" />
+        <di:waypoint x="1340" y="504" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1114" y="82" width="90" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_001_EX_001_Fail_di" bpmnElement="Flow_GW_001_EX_001_Fail">
+        <di:waypoint x="950" y="759" />
+        <di:waypoint x="950" y="787" />
+        <di:waypoint x="1058" y="787" />
+        <di:waypoint x="1058" y="268" />
+        <di:waypoint x="1100" y="268" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="965" y="795" width="100" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_002_ST_004_Pass_di" bpmnElement="Flow_GW_002_ST_004_Pass">
+        <di:waypoint x="1695" y="504" />
+        <di:waypoint x="1723" y="504" />
+        <di:waypoint x="1723" y="132" />
+        <di:waypoint x="2036" y="132" />
+        <di:waypoint x="2036" y="734" />
+        <di:waypoint x="2060" y="734" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1834" y="110" width="90" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_002_EX_002_Fail_di" bpmnElement="Flow_GW_002_EX_002_Fail">
+        <di:waypoint x="1670" y="529" />
+        <di:waypoint x="1670" y="557" />
+        <di:waypoint x="1778" y="557" />
+        <di:waypoint x="1778" y="504" />
+        <di:waypoint x="1820" y="504" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1685" y="565" width="100" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EX_001_ST_001_di" bpmnElement="Flow_EX_001_ST_001">
+        <di:waypoint x="1190" y="308" />
+        <di:waypoint x="1190" y="820" />
+        <di:waypoint x="422" y="820" />
+        <di:waypoint x="422" y="308" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="751" y="798" width="110" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EX_002_ST_003_di" bpmnElement="Flow_EX_002_ST_003">
+        <di:waypoint x="1910" y="544" />
+        <di:waypoint x="1910" y="850" />
+        <di:waypoint x="1382" y="850" />
+        <di:waypoint x="1382" y="544" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1591" y="828" width="110" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_005_End_di" bpmnElement="Flow_ST_005_End">
+        <di:waypoint x="2480" y="268" />
+        <di:waypoint x="2560" y="268" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -6,3 +6,6 @@ venv/
 .DS_Store
 *.tmp
 *.lock
+docs/
+specs/
+*_SPEC.md

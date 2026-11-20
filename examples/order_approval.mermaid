@@ -1,0 +1,35 @@
+flowchart TD
+    classDef human fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#0f172a;
+    classDef code fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:#0f172a;
+    classDef agent fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#0f172a;
+    classDef ex fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#7f1d1d;
+    classDef gw fill:#fffde7,stroke:#fbc02d,stroke-width:2px,color:#0f172a;
+
+    START(["Process Initiated"]):::human
+    END(["Process Completed"]):::code
+    subgraph P1["Phase 1: Intake & Validation"]
+        ST_001["ST-001: Submit Order Request"]:::human
+        ST_002["ST-002: Validate Inventory & Credit"]:::code
+    end
+    subgraph P2["Phase 2: Approval & Fulfillment"]
+        ST_003["ST-003: Review High-Value Order"]:::agent
+        ST_004["ST-004: Confirm Payment & Dispatch"]:::code
+        ST_005["ST-005: Deliver Confirmation Receipt"]:::human
+    end
+    GW_001{"GW-001: Inventory & Credit Valid?"}:::gw
+    GW_002{"GW-002: Approval Granted?"}:::gw
+    EX_001["EX-001: Auto-Heal (INVALID_OR_OOS)"]:::ex
+    EX_002["EX-002: Auto-Heal (REVISION_REQUIRED)"]:::ex
+
+    START --> ST_001
+    ST_001 --> ST_002
+    ST_002 --> GW_001
+    ST_003 --> GW_002
+    ST_004 --> ST_005
+    GW_001 -- "Pass" --> ST_003
+    GW_001 -- "INVALID_OR_OOS" --> EX_001
+    GW_002 -- "Pass" --> ST_004
+    GW_002 -- "REVISION_REQUIRED" --> EX_002
+    EX_001 -- "Retry -> ST-001" --> ST_001
+    EX_002 -- "Retry -> ST-003" --> ST_003
+    ST_005 --> END
