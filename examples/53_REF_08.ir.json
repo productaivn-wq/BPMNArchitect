@@ -1,0 +1,465 @@
+{
+  "process": {
+    "id": "53.REF.08",
+    "name": "18-Step Universal Vibe Working Process [CORE]",
+    "version": "3.0.0",
+    "protocol_type": "CORE"
+  },
+  "lanes": [
+    {
+      "lane_id": "Lane_HUMAN",
+      "name": "Human Node (HUM — Intent, Ethics & Sign-Off)",
+      "node_type": "HumanNode"
+    },
+    {
+      "lane_id": "Lane_AGENT",
+      "name": "Agent Node Swarm (AGT — BDI Reasoning & Synthesis)",
+      "node_type": "AgentNode"
+    },
+    {
+      "lane_id": "Lane_CODE",
+      "name": "Code Node (DET P=1 — Validation, Gates & State)",
+      "node_type": "CodeNode"
+    }
+  ],
+  "phases": [
+    {
+      "phase_id": 1,
+      "name": "Intake & Registration",
+      "governance_gates": []
+    },
+    {
+      "phase_id": 2,
+      "name": "Plan & Sign-Off (Outline & Rubrics)",
+      "governance_gates": []
+    },
+    {
+      "phase_id": 3,
+      "name": "Authorize (Minimal-HITL)",
+      "governance_gates": []
+    },
+    {
+      "phase_id": 4,
+      "name": "Parallel Execution",
+      "governance_gates": []
+    },
+    {
+      "phase_id": 5,
+      "name": "Validate & Review",
+      "governance_gates": []
+    },
+    {
+      "phase_id": 6,
+      "name": "Approve & Integrate",
+      "governance_gates": []
+    },
+    {
+      "phase_id": 7,
+      "name": "Close, Distill & Learn",
+      "governance_gates": []
+    }
+  ],
+  "activities": [
+    {
+      "activity_id": "ST-001",
+      "name": "Message Inquiry Intake",
+      "phase_id": 1,
+      "assigned_node_type": "HumanNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_HUMAN",
+      "rule_ref": "53.REF.08 Intake",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-002",
+      "name": "Task Registration & SSOT Intake",
+      "phase_id": 1,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "DocOrg Intake",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-003",
+      "name": "Goal & Pomodoro Budget",
+      "phase_id": 1,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "SMART + 15m Sprint",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-004",
+      "name": "Plan & Outline Decomposition",
+      "phase_id": 2,
+      "assigned_node_type": "AgentNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": "task_decomposition",
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_AGENT",
+      "rule_ref": "TOC + 4-Block Goal + DoD",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-005",
+      "name": "Kahn DAG Wave Calculation",
+      "phase_id": 2,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "Zero-Indegree Waves",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-006",
+      "name": "MergePoint Barrier Insertion",
+      "phase_id": 2,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "Kahn Barrier",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-007",
+      "name": "Grant Issuance & Path Guard",
+      "phase_id": 3,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "GRANT-XXX / MECE Zone",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-008",
+      "name": "Dynamic Fan-Out Execution",
+      "phase_id": 4,
+      "assigned_node_type": "AgentNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": "worker_default",
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_AGENT",
+      "rule_ref": "Depth <= 2 Synthesis",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-009",
+      "name": "Pomodoro Focus Enforcement",
+      "phase_id": 4,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "GW-TIMEBOX-01 (2m/5m)",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-010",
+      "name": "Subtask Micro-Reflection (RF-001)",
+      "phase_id": 4,
+      "assigned_node_type": "AgentNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": "reflection:rf-001",
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_AGENT",
+      "rule_ref": "30s Recalibration",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-011",
+      "name": "MergePoint Barrier Sync",
+      "phase_id": 4,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "Draft Consolidation",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-012",
+      "name": "Document Depth & Rule Audit",
+      "phase_id": 5,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "MECE Depth <= 2",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-013",
+      "name": "Mandatory EBQC Quality Gate",
+      "phase_id": 5,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "EAI >= 0.98",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-014",
+      "name": "Task Meso-Reflection (RF-002)",
+      "phase_id": 5,
+      "assigned_node_type": "AgentNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": "reflection:rf-002",
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_AGENT",
+      "rule_ref": "1m Reflection",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-015",
+      "name": "Compile walkthrough.md Proof",
+      "phase_id": 5,
+      "assigned_node_type": "AgentNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_AGENT",
+      "rule_ref": "1:1 DoD Matrix",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-016",
+      "name": "Separation of Duties Check",
+      "phase_id": 6,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "GW-SOD-01",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-017",
+      "name": "Commit MECE Zone & Git Sync",
+      "phase_id": 6,
+      "assigned_node_type": "CodeNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": null,
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_CODE",
+      "rule_ref": "10/20/30 Zone Commit",
+      "category": "CORE"
+    },
+    {
+      "activity_id": "ST-018",
+      "name": "Close, Macro-Reflection (RF-003) & Distill",
+      "phase_id": 7,
+      "assigned_node_type": "AgentNode",
+      "allocated_actor_id": "default_worker",
+      "pomodoro_tier": "2m",
+      "prompt_name": "reflection:rf-003",
+      "input_keys": [],
+      "output_keys": [],
+      "metadata": {},
+      "lane_id": "Lane_AGENT",
+      "rule_ref": "WeKnora + hot.md <= 500w",
+      "category": "CORE"
+    }
+  ],
+  "gateways": [
+    {
+      "gateway_id": "GW-001",
+      "name": "Rubric & Outline Baseline",
+      "gateway_type": "XOR",
+      "condition_expression": "outline_and_dod_ready",
+      "true_target": "ST-005",
+      "false_target": "EX-001",
+      "lane_id": "Lane_CODE",
+      "phase_id": 2
+    },
+    {
+      "gateway_id": "GW-002",
+      "name": "Minimal-HITL Scope Gate",
+      "gateway_type": "XOR",
+      "condition_expression": "tier <= 1 and scope_ok",
+      "true_target": "ST-007",
+      "false_target": "EX-002",
+      "lane_id": "Lane_CODE",
+      "phase_id": 3
+    },
+    {
+      "gateway_id": "GW-003",
+      "name": "QualityGate Pass (EAI >= 0.98)",
+      "gateway_type": "XOR",
+      "condition_expression": "eai >= 0.98 and dod_pass",
+      "true_target": "ST-015",
+      "false_target": "EX-003",
+      "lane_id": "Lane_CODE",
+      "phase_id": 5
+    }
+  ],
+  "exception_loops": [
+    {
+      "loop_id": "EX-001",
+      "source_activity_id": "GW-001",
+      "recovery_activity_id": "ST-004",
+      "trigger_error_code": "RUBRIC_MISSING",
+      "max_retries": 3,
+      "lane_id": "Lane_CODE",
+      "description": null
+    },
+    {
+      "loop_id": "EX-002",
+      "source_activity_id": "GW-002",
+      "recovery_activity_id": "ST-007",
+      "trigger_error_code": "HIGH_RISK_HITL",
+      "max_retries": 3,
+      "lane_id": "Lane_HUMAN",
+      "description": null
+    },
+    {
+      "loop_id": "EX-003",
+      "source_activity_id": "GW-003",
+      "recovery_activity_id": "ST-008",
+      "trigger_error_code": "QUALITY_GATE_FAIL",
+      "max_retries": 3,
+      "lane_id": "Lane_CODE",
+      "description": null
+    }
+  ],
+  "transitions": [
+    {
+      "source": "ST-001",
+      "target": "ST-002"
+    },
+    {
+      "source": "ST-002",
+      "target": "ST-003"
+    },
+    {
+      "source": "ST-003",
+      "target": "ST-004"
+    },
+    {
+      "source": "ST-004",
+      "target": "ST-005"
+    },
+    {
+      "source": "ST-005",
+      "target": "ST-006"
+    },
+    {
+      "source": "ST-006",
+      "target": "ST-007"
+    },
+    {
+      "source": "ST-007",
+      "target": "ST-008"
+    },
+    {
+      "source": "ST-008",
+      "target": "ST-009"
+    },
+    {
+      "source": "ST-009",
+      "target": "ST-010"
+    },
+    {
+      "source": "ST-010",
+      "target": "ST-011"
+    },
+    {
+      "source": "ST-011",
+      "target": "ST-012"
+    },
+    {
+      "source": "ST-012",
+      "target": "ST-013"
+    },
+    {
+      "source": "ST-013",
+      "target": "ST-014"
+    },
+    {
+      "source": "ST-014",
+      "target": "ST-015"
+    },
+    {
+      "source": "ST-015",
+      "target": "ST-016"
+    },
+    {
+      "source": "ST-016",
+      "target": "ST-017"
+    },
+    {
+      "source": "ST-017",
+      "target": "ST-018"
+    }
+  ]
+}

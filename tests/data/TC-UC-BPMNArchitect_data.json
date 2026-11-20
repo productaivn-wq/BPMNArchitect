@@ -1,0 +1,1640 @@
+[
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_001",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S01",
+    "type": "Happy Path",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_002",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S02",
+    "type": "EP: Numeric Partition 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "EP: Numeric Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_003",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S03",
+    "type": "EP: Numeric Partition 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "EP: Numeric Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_004",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S04",
+    "type": "EP: Numeric Partition 3",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "EP: Numeric Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_005",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S05",
+    "type": "BVA: Numeric Boundary 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "BVA: Numeric Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_006",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S06",
+    "type": "BVA: Numeric Boundary 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "BVA: Numeric Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_007",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S07",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_008",
+    "fr_ref": "FR-001",
+    "scenario_ref": "TC-BPMNARCHITECT-S08",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-001",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_009",
+    "fr_ref": "FR-002",
+    "scenario_ref": "TC-BPMNARCHITECT-S09",
+    "type": "Happy Path",
+    "parameters": [
+      "enum"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-002",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_010",
+    "fr_ref": "FR-002",
+    "scenario_ref": "TC-BPMNARCHITECT-S10",
+    "type": "EP: Enum Partition 1",
+    "parameters": [
+      "enum"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-002",
+      "test_vector_type": "EP: Enum Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_011",
+    "fr_ref": "FR-002",
+    "scenario_ref": "TC-BPMNARCHITECT-S11",
+    "type": "EP: Enum Partition 2",
+    "parameters": [
+      "enum"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-002",
+      "test_vector_type": "EP: Enum Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_012",
+    "fr_ref": "FR-002",
+    "scenario_ref": "TC-BPMNARCHITECT-S12",
+    "type": "EP: Enum Partition 3",
+    "parameters": [
+      "enum"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-002",
+      "test_vector_type": "EP: Enum Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_013",
+    "fr_ref": "FR-002",
+    "scenario_ref": "TC-BPMNARCHITECT-S13",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "enum"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-002",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_014",
+    "fr_ref": "FR-002",
+    "scenario_ref": "TC-BPMNARCHITECT-S14",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "enum"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-002",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_015",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S15",
+    "type": "Happy Path",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_016",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S16",
+    "type": "EP: Numeric Partition 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "EP: Numeric Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_017",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S17",
+    "type": "EP: Numeric Partition 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "EP: Numeric Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_018",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S18",
+    "type": "EP: Numeric Partition 3",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "EP: Numeric Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_019",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S19",
+    "type": "BVA: Numeric Boundary 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "BVA: Numeric Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_020",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S20",
+    "type": "BVA: Numeric Boundary 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "BVA: Numeric Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_021",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S21",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_022",
+    "fr_ref": "FR-003",
+    "scenario_ref": "TC-BPMNARCHITECT-S22",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-003",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_023",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S23",
+    "type": "Happy Path",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_024",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S24",
+    "type": "EP: Numeric Partition 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "EP: Numeric Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_025",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S25",
+    "type": "EP: Numeric Partition 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "EP: Numeric Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_026",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S26",
+    "type": "EP: Numeric Partition 3",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "EP: Numeric Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_027",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S27",
+    "type": "BVA: Numeric Boundary 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "BVA: Numeric Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_028",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S28",
+    "type": "BVA: Numeric Boundary 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "BVA: Numeric Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_029",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S29",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_030",
+    "fr_ref": "FR-004",
+    "scenario_ref": "TC-BPMNARCHITECT-S30",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-004",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_031",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S31",
+    "type": "Happy Path",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_032",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S32",
+    "type": "EP: Numeric Partition 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "EP: Numeric Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_033",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S33",
+    "type": "EP: Numeric Partition 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "EP: Numeric Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_034",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S34",
+    "type": "EP: Numeric Partition 3",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "EP: Numeric Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_035",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S35",
+    "type": "BVA: Numeric Boundary 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "BVA: Numeric Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_036",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S36",
+    "type": "BVA: Numeric Boundary 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "BVA: Numeric Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_037",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S37",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_038",
+    "fr_ref": "FR-005",
+    "scenario_ref": "TC-BPMNARCHITECT-S38",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-005",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_039",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S39",
+    "type": "Happy Path",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_040",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S40",
+    "type": "EP: String Partition 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "EP: String Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_041",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S41",
+    "type": "EP: String Partition 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "EP: String Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_042",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S42",
+    "type": "EP: String Partition 3",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "EP: String Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_043",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S43",
+    "type": "BVA: String Boundary 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "BVA: String Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_044",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S44",
+    "type": "BVA: String Boundary 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "BVA: String Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_045",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S45",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_046",
+    "fr_ref": "FR-006",
+    "scenario_ref": "TC-BPMNARCHITECT-S46",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-006",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_047",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S47",
+    "type": "Happy Path",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_048",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S48",
+    "type": "EP: String Partition 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "EP: String Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_049",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S49",
+    "type": "EP: String Partition 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "EP: String Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_050",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S50",
+    "type": "EP: String Partition 3",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "EP: String Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_051",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S51",
+    "type": "BVA: String Boundary 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "BVA: String Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_052",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S52",
+    "type": "BVA: String Boundary 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "BVA: String Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_053",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S53",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_054",
+    "fr_ref": "FR-007",
+    "scenario_ref": "TC-BPMNARCHITECT-S54",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-007",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_055",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S55",
+    "type": "Happy Path",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_056",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S56",
+    "type": "EP: String Partition 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "EP: String Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_057",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S57",
+    "type": "EP: String Partition 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "EP: String Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_058",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S58",
+    "type": "EP: String Partition 3",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "EP: String Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_059",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S59",
+    "type": "BVA: String Boundary 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "BVA: String Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_060",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S60",
+    "type": "BVA: String Boundary 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "BVA: String Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_061",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S61",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_062",
+    "fr_ref": "FR-008",
+    "scenario_ref": "TC-BPMNARCHITECT-S62",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-008",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_063",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S63",
+    "type": "Happy Path",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_064",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S64",
+    "type": "EP: Numeric Partition 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "EP: Numeric Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_065",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S65",
+    "type": "EP: Numeric Partition 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "EP: Numeric Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_066",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S66",
+    "type": "EP: Numeric Partition 3",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "EP: Numeric Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_067",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S67",
+    "type": "BVA: Numeric Boundary 1",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "BVA: Numeric Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_068",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S68",
+    "type": "BVA: Numeric Boundary 2",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "BVA: Numeric Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_069",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S69",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_070",
+    "fr_ref": "FR-009",
+    "scenario_ref": "TC-BPMNARCHITECT-S70",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "numeric"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-009",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_071",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S71",
+    "type": "Happy Path",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "Happy Path",
+      "boundary_offset": 0
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 200,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_072",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S72",
+    "type": "EP: String Partition 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "EP: String Partition 1",
+      "boundary_offset": 1
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_073",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S73",
+    "type": "EP: String Partition 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "EP: String Partition 2",
+      "boundary_offset": 2
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_074",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S74",
+    "type": "EP: String Partition 3",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "EP: String Partition 3",
+      "boundary_offset": 3
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_075",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S75",
+    "type": "BVA: String Boundary 1",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "BVA: String Boundary 1",
+      "boundary_offset": 4
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_076",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S76",
+    "type": "BVA: String Boundary 2",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "BVA: String Boundary 2",
+      "boundary_offset": 5
+    },
+    "expected_outcome": {
+      "status": "success",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_077",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S77",
+    "type": "RG6: Execution Timeout",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "RG6: Execution Timeout",
+      "boundary_offset": 6
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  },
+  {
+    "tc_id": "TC_UC_BPMNARCHITECT_078",
+    "fr_ref": "FR-010",
+    "scenario_ref": "TC-BPMNARCHITECT-S78",
+    "type": "RG6: Circuit Breaker Trip",
+    "parameters": [
+      "string"
+    ],
+    "risk_group": "RG6",
+    "input_payload": {
+      "skill": "BPMNArchitect",
+      "target_entity": "FR-010",
+      "test_vector_type": "RG6: Circuit Breaker Trip",
+      "boundary_offset": 7
+    },
+    "expected_outcome": {
+      "status": "handled_error",
+      "code": 400,
+      "error_boundary_contained": true
+    }
+  }
+]

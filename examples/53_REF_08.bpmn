@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_53_REF_08"
+                  targetNamespace="http://bpmn.io/schema/bpmn"
+                  exporter="Camunda Modeler"
+                  exporterVersion="5.20.0">
+  <bpmn:collaboration id="Collaboration_53_REF_08">
+    <bpmn:participant id="Participant_53_REF_08" name="18-Step Universal Vibe Working Process [CORE]" processRef="Process_53_REF_08" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_53_REF_08" name="18-Step Universal Vibe Working Process [CORE]" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_53_REF_08">
+      <bpmn:lane id="Lane_HUMAN" name="Human Node (HUM — Intent, Ethics &amp; Sign-Off)">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EX-002</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_AGENT" name="Agent Node Swarm (AGT — BDI Reasoning &amp; Synthesis)">
+        <bpmn:flowNodeRef>ST-004</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-008</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-010</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-014</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-015</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-018</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_CODE" name="Code Node (DET P=1 — Validation, Gates &amp; State)">
+        <bpmn:flowNodeRef>ST-002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW-001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EX-001</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-005</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-006</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW-002</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-007</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-009</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-011</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-012</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-013</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW-003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EX-003</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-016</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST-017</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_1" name="Process Initiated">
+      <bpmn:outgoing>Flow_Start_ST_001</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="ST-001" name="ST-001: Message Inquiry Intake&#10;(53.REF.08 Intake)">
+      <bpmn:incoming>Flow_Start_ST_001</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_001_ST_002</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ST-002" name="ST-002: Task Registration &amp; SSOT Intake&#10;(DocOrg Intake)">
+      <bpmn:incoming>Flow_ST_001_ST_002</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_002_ST_003</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ST-003" name="ST-003: Goal &amp; Pomodoro Budget&#10;(SMART + 15m Sprint)">
+      <bpmn:incoming>Flow_ST_002_ST_003</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_003_ST_004</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-004" name="ST-004: Plan &amp; Outline Decomposition&#10;(TOC + 4-Block Goal + DoD)">
+      <bpmn:incoming>Flow_ST_003_ST_004</bpmn:incoming>
+      <bpmn:incoming>Flow_EX_001_ST_004</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_004_GW_001</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW-001" name="GW-001: Rubric &amp; Outline Baseline">
+      <bpmn:incoming>Flow_ST_004_GW_001</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_001_ST_005_Pass</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW_001_EX_001_Fail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="EX-001" name="EX-001: Auto-Heal (RUBRIC_MISSING)&#10;(Recover -&gt; ST-004)">
+      <bpmn:incoming>Flow_GW_001_EX_001_Fail</bpmn:incoming>
+      <bpmn:outgoing>Flow_EX_001_ST_004</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ST-005" name="ST-005: Kahn DAG Wave Calculation&#10;(Zero-Indegree Waves)">
+      <bpmn:incoming>Flow_GW_001_ST_005_Pass</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_005_ST_006</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ST-006" name="ST-006: MergePoint Barrier Insertion&#10;(Kahn Barrier)">
+      <bpmn:incoming>Flow_ST_005_ST_006</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_006_GW_002</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="GW-002" name="GW-002: Minimal-HITL Scope Gate">
+      <bpmn:incoming>Flow_ST_006_GW_002</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_002_ST_007_Pass</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW_002_EX_002_Fail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="EX-002" name="EX-002: Auto-Heal (HIGH_RISK_HITL)&#10;(Recover -&gt; ST-007)">
+      <bpmn:incoming>Flow_GW_002_EX_002_Fail</bpmn:incoming>
+      <bpmn:outgoing>Flow_EX_002_ST_007</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ST-007" name="ST-007: Grant Issuance &amp; Path Guard&#10;(GRANT-XXX / MECE Zone)">
+      <bpmn:incoming>Flow_GW_002_ST_007_Pass</bpmn:incoming>
+      <bpmn:incoming>Flow_EX_002_ST_007</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_007_ST_008</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-008" name="ST-008: Dynamic Fan-Out Execution&#10;(Depth &lt;= 2 Synthesis)">
+      <bpmn:incoming>Flow_ST_007_ST_008</bpmn:incoming>
+      <bpmn:incoming>Flow_EX_003_ST_008</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_008_ST_009</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ST-009" name="ST-009: Pomodoro Focus Enforcement&#10;(GW-TIMEBOX-01 (2m/5m))">
+      <bpmn:incoming>Flow_ST_008_ST_009</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_009_ST_010</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-010" name="ST-010: Subtask Micro-Reflection (RF-001)&#10;(30s Recalibration)">
+      <bpmn:incoming>Flow_ST_009_ST_010</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_010_ST_011</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ST-011" name="ST-011: MergePoint Barrier Sync&#10;(Draft Consolidation)">
+      <bpmn:incoming>Flow_ST_010_ST_011</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_011_ST_012</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ST-012" name="ST-012: Document Depth &amp; Rule Audit&#10;(MECE Depth &lt;= 2)">
+      <bpmn:incoming>Flow_ST_011_ST_012</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_012_ST_013</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ST-013" name="ST-013: Mandatory EBQC Quality Gate&#10;(EAI &gt;= 0.98)">
+      <bpmn:incoming>Flow_ST_012_ST_013</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_013_ST_014</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-014" name="ST-014: Task Meso-Reflection (RF-002)&#10;(1m Reflection)">
+      <bpmn:incoming>Flow_ST_013_ST_014</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_014_GW_003</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW-003" name="GW-003: QualityGate Pass (EAI &gt;= 0.98)">
+      <bpmn:incoming>Flow_ST_014_GW_003</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW_003_ST_015_Pass</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW_003_EX_003_Fail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="EX-003" name="EX-003: Auto-Heal (QUALITY_GATE_FAIL)&#10;(Recover -&gt; ST-008)">
+      <bpmn:incoming>Flow_GW_003_EX_003_Fail</bpmn:incoming>
+      <bpmn:outgoing>Flow_EX_003_ST_008</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-015" name="ST-015: Compile walkthrough.md Proof&#10;(1:1 DoD Matrix)">
+      <bpmn:incoming>Flow_GW_003_ST_015_Pass</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_015_ST_016</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ST-016" name="ST-016: Separation of Duties Check&#10;(GW-SOD-01)">
+      <bpmn:incoming>Flow_ST_015_ST_016</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_016_ST_017</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ST-017" name="ST-017: Commit MECE Zone &amp; Git Sync&#10;(10/20/30 Zone Commit)">
+      <bpmn:incoming>Flow_ST_016_ST_017</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_017_ST_018</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="ST-018" name="ST-018: Close, Macro-Reflection (RF-003) &amp; Distill&#10;(WeKnora + hot.md &lt;= 500w)">
+      <bpmn:incoming>Flow_ST_017_ST_018</bpmn:incoming>
+      <bpmn:outgoing>Flow_ST_018_End</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_1" name="Process Completed">
+      <bpmn:incoming>Flow_ST_018_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_ST_001" sourceRef="StartEvent_1" targetRef="ST-001" />
+    <bpmn:sequenceFlow id="Flow_ST_001_ST_002" sourceRef="ST-001" targetRef="ST-002" />
+    <bpmn:sequenceFlow id="Flow_ST_002_ST_003" sourceRef="ST-002" targetRef="ST-003" />
+    <bpmn:sequenceFlow id="Flow_ST_003_ST_004" sourceRef="ST-003" targetRef="ST-004" />
+    <bpmn:sequenceFlow id="Flow_ST_004_GW_001" sourceRef="ST-004" targetRef="GW-001" />
+    <bpmn:sequenceFlow id="Flow_ST_005_ST_006" sourceRef="ST-005" targetRef="ST-006" />
+    <bpmn:sequenceFlow id="Flow_ST_006_GW_002" sourceRef="ST-006" targetRef="GW-002" />
+    <bpmn:sequenceFlow id="Flow_ST_007_ST_008" sourceRef="ST-007" targetRef="ST-008" />
+    <bpmn:sequenceFlow id="Flow_ST_008_ST_009" sourceRef="ST-008" targetRef="ST-009" />
+    <bpmn:sequenceFlow id="Flow_ST_009_ST_010" sourceRef="ST-009" targetRef="ST-010" />
+    <bpmn:sequenceFlow id="Flow_ST_010_ST_011" sourceRef="ST-010" targetRef="ST-011" />
+    <bpmn:sequenceFlow id="Flow_ST_011_ST_012" sourceRef="ST-011" targetRef="ST-012" />
+    <bpmn:sequenceFlow id="Flow_ST_012_ST_013" sourceRef="ST-012" targetRef="ST-013" />
+    <bpmn:sequenceFlow id="Flow_ST_013_ST_014" sourceRef="ST-013" targetRef="ST-014" />
+    <bpmn:sequenceFlow id="Flow_ST_014_GW_003" sourceRef="ST-014" targetRef="GW-003" />
+    <bpmn:sequenceFlow id="Flow_ST_015_ST_016" sourceRef="ST-015" targetRef="ST-016" />
+    <bpmn:sequenceFlow id="Flow_ST_016_ST_017" sourceRef="ST-016" targetRef="ST-017" />
+    <bpmn:sequenceFlow id="Flow_ST_017_ST_018" sourceRef="ST-017" targetRef="ST-018" />
+    <bpmn:sequenceFlow id="Flow_GW_001_ST_005_Pass" name="Pass" sourceRef="GW-001" targetRef="ST-005" />
+    <bpmn:sequenceFlow id="Flow_GW_001_EX_001_Fail" name="RUBRIC_MISSING" sourceRef="GW-001" targetRef="EX-001" />
+    <bpmn:sequenceFlow id="Flow_GW_002_ST_007_Pass" name="Pass" sourceRef="GW-002" targetRef="ST-007" />
+    <bpmn:sequenceFlow id="Flow_GW_002_EX_002_Fail" name="HIGH_RISK_HITL" sourceRef="GW-002" targetRef="EX-002" />
+    <bpmn:sequenceFlow id="Flow_GW_003_ST_015_Pass" name="Pass" sourceRef="GW-003" targetRef="ST-015" />
+    <bpmn:sequenceFlow id="Flow_GW_003_EX_003_Fail" name="QUALITY_GATE_FAIL" sourceRef="GW-003" targetRef="EX-003" />
+    <bpmn:sequenceFlow id="Flow_EX_001_ST_004" name="Retry -&gt; ST-004" sourceRef="EX-001" targetRef="ST-004" />
+    <bpmn:sequenceFlow id="Flow_EX_002_ST_007" name="Retry -&gt; ST-007" sourceRef="EX-002" targetRef="ST-007" />
+    <bpmn:sequenceFlow id="Flow_EX_003_ST_008" name="Retry -&gt; ST-008" sourceRef="EX-003" targetRef="ST-008" />
+    <bpmn:sequenceFlow id="Flow_ST_018_End" sourceRef="ST-018" targetRef="EndEvent_1" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_53_REF_08">
+    <bpmndi:BPMNPlane id="BPMNPlane_53_REF_08" bpmnElement="Collaboration_53_REF_08">
+      <bpmndi:BPMNShape id="Participant_53_REF_08_di" bpmnElement="Participant_53_REF_08" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="6340" height="940" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_HUMAN_di" bpmnElement="Lane_HUMAN" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="6310" height="334" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_AGENT_di" bpmnElement="Lane_AGENT" isHorizontal="true">
+        <dc:Bounds x="190" y="414" width="6310" height="230" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CODE_di" bpmnElement="Lane_CODE" isHorizontal="true">
+        <dc:Bounds x="190" y="644" width="6310" height="376" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="252" y="278" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="235" y="320" width="106" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-001_di" bpmnElement="ST-001">
+        <dc:Bounds x="380" y="256" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-002_di" bpmnElement="ST-002">
+        <dc:Bounds x="620" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-003_di" bpmnElement="ST-003">
+        <dc:Bounds x="860" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-004_di" bpmnElement="ST-004">
+        <dc:Bounds x="1100" y="492" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW-001_di" bpmnElement="GW-001" isMarkerVisible="true">
+        <dc:Bounds x="1405" y="737" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1370" y="697" width="120" height="25" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EX-001_di" bpmnElement="EX-001">
+        <dc:Bounds x="1580" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-005_di" bpmnElement="ST-005">
+        <dc:Bounds x="1820" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-006_di" bpmnElement="ST-006">
+        <dc:Bounds x="2060" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW-002_di" bpmnElement="GW-002" isMarkerVisible="true">
+        <dc:Bounds x="2365" y="737" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2330" y="697" width="120" height="25" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EX-002_di" bpmnElement="EX-002">
+        <dc:Bounds x="2540" y="256" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-007_di" bpmnElement="ST-007">
+        <dc:Bounds x="2780" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-008_di" bpmnElement="ST-008">
+        <dc:Bounds x="3020" y="492" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-009_di" bpmnElement="ST-009">
+        <dc:Bounds x="3260" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-010_di" bpmnElement="ST-010">
+        <dc:Bounds x="3500" y="492" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-011_di" bpmnElement="ST-011">
+        <dc:Bounds x="3740" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-012_di" bpmnElement="ST-012">
+        <dc:Bounds x="3980" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-013_di" bpmnElement="ST-013">
+        <dc:Bounds x="4220" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-014_di" bpmnElement="ST-014">
+        <dc:Bounds x="4460" y="492" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW-003_di" bpmnElement="GW-003" isMarkerVisible="true">
+        <dc:Bounds x="4765" y="737" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4730" y="697" width="120" height="25" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EX-003_di" bpmnElement="EX-003">
+        <dc:Bounds x="4940" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-015_di" bpmnElement="ST-015">
+        <dc:Bounds x="5180" y="492" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-016_di" bpmnElement="ST-016">
+        <dc:Bounds x="5420" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-017_di" bpmnElement="ST-017">
+        <dc:Bounds x="5660" y="722" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST-018_di" bpmnElement="ST-018">
+        <dc:Bounds x="5900" y="492" width="180" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1_di" bpmnElement="EndEvent_1">
+        <dc:Bounds x="6160" y="514" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="6125" y="556" width="106" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_ST_001_di" bpmnElement="Flow_Start_ST_001">
+        <di:waypoint x="288" y="296" />
+        <di:waypoint x="380" y="296" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_001_ST_002_di" bpmnElement="Flow_ST_001_ST_002">
+        <di:waypoint x="560" y="296" />
+        <di:waypoint x="586" y="296" />
+        <di:waypoint x="586" y="762" />
+        <di:waypoint x="620" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_002_ST_003_di" bpmnElement="Flow_ST_002_ST_003">
+        <di:waypoint x="800" y="762" />
+        <di:waypoint x="860" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_003_ST_004_di" bpmnElement="Flow_ST_003_ST_004">
+        <di:waypoint x="1040" y="762" />
+        <di:waypoint x="1066" y="762" />
+        <di:waypoint x="1066" y="532" />
+        <di:waypoint x="1100" y="532" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_004_GW_001_di" bpmnElement="Flow_ST_004_GW_001">
+        <di:waypoint x="1280" y="532" />
+        <di:waypoint x="1306" y="532" />
+        <di:waypoint x="1306" y="762" />
+        <di:waypoint x="1405" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_005_ST_006_di" bpmnElement="Flow_ST_005_ST_006">
+        <di:waypoint x="2000" y="762" />
+        <di:waypoint x="2060" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_006_GW_002_di" bpmnElement="Flow_ST_006_GW_002">
+        <di:waypoint x="2240" y="762" />
+        <di:waypoint x="2365" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_007_ST_008_di" bpmnElement="Flow_ST_007_ST_008">
+        <di:waypoint x="2960" y="762" />
+        <di:waypoint x="2986" y="762" />
+        <di:waypoint x="2986" y="532" />
+        <di:waypoint x="3020" y="532" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_008_ST_009_di" bpmnElement="Flow_ST_008_ST_009">
+        <di:waypoint x="3200" y="532" />
+        <di:waypoint x="3226" y="532" />
+        <di:waypoint x="3226" y="762" />
+        <di:waypoint x="3260" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_009_ST_010_di" bpmnElement="Flow_ST_009_ST_010">
+        <di:waypoint x="3440" y="762" />
+        <di:waypoint x="3466" y="762" />
+        <di:waypoint x="3466" y="532" />
+        <di:waypoint x="3500" y="532" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_010_ST_011_di" bpmnElement="Flow_ST_010_ST_011">
+        <di:waypoint x="3680" y="532" />
+        <di:waypoint x="3706" y="532" />
+        <di:waypoint x="3706" y="762" />
+        <di:waypoint x="3740" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_011_ST_012_di" bpmnElement="Flow_ST_011_ST_012">
+        <di:waypoint x="3920" y="762" />
+        <di:waypoint x="3980" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_012_ST_013_di" bpmnElement="Flow_ST_012_ST_013">
+        <di:waypoint x="4160" y="762" />
+        <di:waypoint x="4220" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_013_ST_014_di" bpmnElement="Flow_ST_013_ST_014">
+        <di:waypoint x="4400" y="762" />
+        <di:waypoint x="4426" y="762" />
+        <di:waypoint x="4426" y="532" />
+        <di:waypoint x="4460" y="532" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_014_GW_003_di" bpmnElement="Flow_ST_014_GW_003">
+        <di:waypoint x="4640" y="532" />
+        <di:waypoint x="4666" y="532" />
+        <di:waypoint x="4666" y="762" />
+        <di:waypoint x="4765" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_015_ST_016_di" bpmnElement="Flow_ST_015_ST_016">
+        <di:waypoint x="5360" y="532" />
+        <di:waypoint x="5386" y="532" />
+        <di:waypoint x="5386" y="762" />
+        <di:waypoint x="5420" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_016_ST_017_di" bpmnElement="Flow_ST_016_ST_017">
+        <di:waypoint x="5600" y="762" />
+        <di:waypoint x="5660" y="762" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_017_ST_018_di" bpmnElement="Flow_ST_017_ST_018">
+        <di:waypoint x="5840" y="762" />
+        <di:waypoint x="5866" y="762" />
+        <di:waypoint x="5866" y="532" />
+        <di:waypoint x="5900" y="532" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_001_ST_005_Pass_di" bpmnElement="Flow_GW_001_ST_005_Pass">
+        <di:waypoint x="1455" y="762" />
+        <di:waypoint x="1483" y="762" />
+        <di:waypoint x="1483" y="104" />
+        <di:waypoint x="1796" y="104" />
+        <di:waypoint x="1796" y="762" />
+        <di:waypoint x="1820" y="762" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1594" y="82" width="90" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_001_EX_001_Fail_di" bpmnElement="Flow_GW_001_EX_001_Fail">
+        <di:waypoint x="1430" y="787" />
+        <di:waypoint x="1430" y="815" />
+        <di:waypoint x="1538" y="815" />
+        <di:waypoint x="1538" y="762" />
+        <di:waypoint x="1580" y="762" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1445" y="823" width="100" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_002_ST_007_Pass_di" bpmnElement="Flow_GW_002_ST_007_Pass">
+        <di:waypoint x="2415" y="762" />
+        <di:waypoint x="2443" y="762" />
+        <di:waypoint x="2443" y="132" />
+        <di:waypoint x="2756" y="132" />
+        <di:waypoint x="2756" y="762" />
+        <di:waypoint x="2780" y="762" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2554" y="110" width="90" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_002_EX_002_Fail_di" bpmnElement="Flow_GW_002_EX_002_Fail">
+        <di:waypoint x="2390" y="787" />
+        <di:waypoint x="2390" y="815" />
+        <di:waypoint x="2498" y="815" />
+        <di:waypoint x="2498" y="296" />
+        <di:waypoint x="2540" y="296" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2405" y="823" width="100" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_003_ST_015_Pass_di" bpmnElement="Flow_GW_003_ST_015_Pass">
+        <di:waypoint x="4815" y="762" />
+        <di:waypoint x="4843" y="762" />
+        <di:waypoint x="4843" y="160" />
+        <di:waypoint x="5156" y="160" />
+        <di:waypoint x="5156" y="532" />
+        <di:waypoint x="5180" y="532" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4954" y="138" width="90" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GW_003_EX_003_Fail_di" bpmnElement="Flow_GW_003_EX_003_Fail">
+        <di:waypoint x="4790" y="787" />
+        <di:waypoint x="4790" y="815" />
+        <di:waypoint x="4898" y="815" />
+        <di:waypoint x="4898" y="762" />
+        <di:waypoint x="4940" y="762" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4805" y="823" width="100" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EX_001_ST_004_di" bpmnElement="Flow_EX_001_ST_004">
+        <di:waypoint x="1670" y="802" />
+        <di:waypoint x="1670" y="848" />
+        <di:waypoint x="1142" y="848" />
+        <di:waypoint x="1142" y="572" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1351" y="826" width="110" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EX_002_ST_007_di" bpmnElement="Flow_EX_002_ST_007">
+        <di:waypoint x="2630" y="336" />
+        <di:waypoint x="2630" y="878" />
+        <di:waypoint x="2822" y="878" />
+        <di:waypoint x="2822" y="802" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2671" y="856" width="110" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_EX_003_ST_008_di" bpmnElement="Flow_EX_003_ST_008">
+        <di:waypoint x="5030" y="802" />
+        <di:waypoint x="5030" y="908" />
+        <di:waypoint x="3062" y="908" />
+        <di:waypoint x="3062" y="572" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3991" y="886" width="110" height="18" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ST_018_End_di" bpmnElement="Flow_ST_018_End">
+        <di:waypoint x="6080" y="532" />
+        <di:waypoint x="6160" y="532" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

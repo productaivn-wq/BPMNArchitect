@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "name": "BPMNArchitect",
+  "version": "2.1.0",
+  "description": "Generic BPMN 2.0 Business Process Modeling, Auditing, and Visualization skill. Models, validates, and renders formal BPMN 2.0 activity diagrams (PlantUML .puml) and interactive Mermaid.js viewers (.html). Incorporates Unified ID Taxonomy (ST-xxx, EX-xxx, GW-xxx, RF-xxx), Dead-End Elimination (EX-001..007), Dynamic Polymorphic Technical Hops ([CODE] vs [CORE]), 4-Tier Quality Gates, and UTOP Graph Traceability.",
+  "triggers": {
+    "keywords": [
+      "architect",
+      "bpmnarchitect"
+    ],
+    "slash_commands": [
+      "/BPMNArchitect"
+    ],
+    "intent_patterns": [
+      "execute bpmnarchitect",
+      "run bpmnarchitect workflow",
+      "orchestrate gutter-detour-invariant"
+    ]
+  },
+  "capabilities": [
+    "gutter-detour-invariant"
+  ],
+  "entry_points": {
+    "main_script": "src/bpmn_process_compiler.py",
+    "cli": "scripts/cli.py"
+  },
+  "mcp_transport": "native",
+  "requires_cdp": false
+}

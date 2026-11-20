@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "name": "DiagramKit",
+  "version": "0.1.0",
+  "description": "Generate C4 architecture diagrams, enterprise architecture gap analysis, and PlantUML rendering with Notion backup.",
+  "triggers": {
+    "keywords": [
+      "diagram",
+      "kit",
+      "diagramkit"
+    ],
+    "slash_commands": [
+      "/DiagramKit"
+    ],
+    "intent_patterns": [
+      "execute diagramkit",
+      "run diagramkit workflow",
+      "orchestrate c4-architecture-authoring"
+    ]
+  },
+  "capabilities": [
+    "c4-architecture-authoring",
+    "enterprise-architecture-gap-analysis",
+    "plantuml-rendering",
+    "notion-backup",
+    "landscape-conversion"
+  ],
+  "entry_points": {
+    "main_script": "",
+    "cli": ""
+  },
+  "mcp_transport": "native",
+  "requires_cdp": false
+}
